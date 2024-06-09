@@ -7,4 +7,7 @@ async function listarLibros(){
     //conecto con la base de datos desde el archivo conn.js
     const client = await conn.getConnection();
     const libros = client.db(DATABASE).collection(LIBROS).find({}).toArray();
+    return libros;
 }
+
+module.exports = {listarLibros};
