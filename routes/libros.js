@@ -13,4 +13,17 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+router.get('/buscar', async function(req, res) {
+  console.log("sad")
+  try{
+    const librosADevolver = await libros.buscarLibro(req.query.titulo, req.query.autor, req.query.genero);
+    
+    res.json(librosADevolver)
+  } catch{
+    console.error(error)
+    res.status(500).send("Error al buscar libros")
+  }
+
+})
+
 module.exports = router;

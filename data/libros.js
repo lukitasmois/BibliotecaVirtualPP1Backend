@@ -1,6 +1,5 @@
-const { ObjectId } = require("mongodb");
 const conn = require("./conn");
-const DATABASE = "tp-final";
+const DATABASE = "practiasdb";
 const LIBROS = "libros";
 
 async function listarLibros(){
@@ -10,4 +9,23 @@ async function listarLibros(){
     return libros;
 }
 
-module.exports = {listarLibros};
+async function buscarLibro(titulo, autor, genero){
+    const client = await conn.getConnection();
+    
+    const query = {};
+
+    if(titulo){
+        query.nombre = { $regex: new RegExp(titulo, 'i') }
+    }
+    if (autor) {
+        query.autor = { $regex: new RegExp(autor, 'i') }
+    }
+    if (genero) {
+        query.genero = { $regex: new RegExp(genero, 'i') }
+    }
+
+    const libros = client.db(DATABASE).collection(LIBROS).find(query).toArray(); 
+    return libros;
+}
+
+module.exports = {listarLibros, buscarLibro};
