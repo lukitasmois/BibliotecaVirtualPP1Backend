@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+
+router.get('/', async function(req, res, next) {
+  try {
+    const libros = await libros.listarLibros();
+    res.json(libros);
+  } catch {
+    console.error(error);
+    res.status(500).send("Error al obtener libros");
+  }
 });
 
 module.exports = router;
