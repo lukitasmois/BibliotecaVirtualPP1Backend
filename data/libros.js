@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
 const conn = require("./conn");
-const DATABASE = "tp-final";
+const DATABASE = "practiasdb";
 const LIBROS = "libros";
 
 async function listarLibros(){
